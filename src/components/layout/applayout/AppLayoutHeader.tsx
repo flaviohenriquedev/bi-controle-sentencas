@@ -3,7 +3,9 @@ import * as S from './style'
 export function AppLayoutHeader() {
     return (
         <S.Header>
-            HEADER
+            <S.LogoContainer>
+                LOGO
+            </S.LogoContainer>
         </S.Header>
     )
 }

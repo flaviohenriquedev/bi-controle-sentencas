@@ -1,5 +1,6 @@
 export type RouteType = {
-    label: string,
+    label: string
+    icon?: JSX.Element
     href?: string
     submenu?: RouteType[]
 }

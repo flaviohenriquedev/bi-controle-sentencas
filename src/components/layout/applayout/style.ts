@@ -9,23 +9,28 @@ export const Container = tw.div`
 
 export const Header = tw.header`
     flex
-    w-screen
-    h-16
-    bg-base-100
+    w-full
+    min-h-[4rem]
+`
+
+export const LogoContainer = tw.div`
+    flex
+    justify-center
+    items-center
+    min-w-[15rem]
 `
 
 export const Sidemenu = tw.aside`
-
     flex
     flex-col
-    w-32
-    h-screen
+    min-w-[15rem]
+    h-full
+    p-1
+    gap-5
     bg-base-300
 `
 
 export const Content = tw.div`
     w-full
     h-full
-    
-    bg-blue-700
 `
