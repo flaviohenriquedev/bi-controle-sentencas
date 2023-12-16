@@ -1,7 +1,10 @@
-export function PageLayoutContainer () {
+import React from "react";
+import * as S from './style'
+
+export function PageLayoutContainer ({children}:{children: React.ReactNode}) {
     return (
-        <div>
-            CONTAINER
-        </div>
+        <S.Container>
+            {children}
+        </S.Container>
     )
 }

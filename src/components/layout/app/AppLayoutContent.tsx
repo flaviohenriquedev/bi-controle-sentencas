@@ -3,7 +3,7 @@ import * as S from './style'
 
 export function AppLayoutContent({children}: { children: React.ReactNode }) {
     return (
-        <S.Content> manager
+        <S.Content>
             {children}
         </S.Content>
     )

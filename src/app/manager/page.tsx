@@ -1,5 +1,5 @@
 export default function ManagerPage() {
     return (
-        <div>MANAGER</div>
+        <div>adm page</div>
     )
 }

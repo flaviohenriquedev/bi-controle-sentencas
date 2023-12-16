@@ -1,9 +1,7 @@
-import {PageLayoutContainer} from "@/components/layout/page/PageLayoutContainer";
-import {PageLayoutHeader} from "@/components/layout/page/PageLayoutHeader";
-import {PageLayoutContent} from "@/components/layout/page/PageLayoutContent";
+import tw from 'tailwind-styled-components'
 
-export const PageLayout = {
-    Container: PageLayoutContainer,
-    Header: PageLayoutHeader,
-    Content: PageLayoutContent
-}
+export const Container = tw.div``
+
+export const Header = tw.header``
+
+export const Content = tw.div``

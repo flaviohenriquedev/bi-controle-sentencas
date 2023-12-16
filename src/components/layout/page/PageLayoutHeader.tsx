@@ -1,7 +1,8 @@
+import * as S from './style'
 export function PageLayoutHeader () {
     return (
-        <header>
+        <S.Header>
             HEADER
-        </header>
+        </S.Header>
     )
 }

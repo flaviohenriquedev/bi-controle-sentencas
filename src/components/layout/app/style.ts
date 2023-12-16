@@ -15,8 +15,7 @@ export const Header = tw.header`
 `
 
 export const Sidemenu = tw.aside`
-    fixed
-    
+
     flex
     flex-col
     w-32
