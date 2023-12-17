@@ -14,7 +14,7 @@ export function AppLayoutSideMenu({routes}: Props) {
                 <input placeholder={`Buscar Menu`}/>
             </div>
             <Menu routes={routes}/>
-            <ToggleTheme />
+            <ToggleTheme/>
         </S.Sidemenu>
     )
 }
