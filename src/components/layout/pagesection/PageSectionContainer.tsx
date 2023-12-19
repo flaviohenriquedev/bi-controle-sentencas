@@ -1,18 +1,26 @@
 import React from "react";
 import * as S from './style'
+import {CommonInterface} from "@/app/interface/CommonInterface";
+import {Header} from "./style";
 
-interface Props {
-    children: React.ReactNode,
-    title?: string
+interface Props extends CommonInterface{
+    titulo?: string
+    mostrarNovoCadastro?: boolean
+    metodoAbrirFormulario?: () => void
 }
 
-export function PageSectionContainer({children, title}: Props) {
+export function PageSectionContainer({children, titulo, metodoAbrirFormulario}: Props) {
     return (
         <S.Container>
-            {title && (
-                <S.Title>
-                    {title}
-                </S.Title>
+            {titulo && (
+                <S.Header>
+                    <S.Label>
+                        {titulo}
+                    </S.Label>
+                    <S.NovoCadastro onClick={() => metodoAbrirFormulario && metodoAbrirFormulario()}>
+                        Novo Cadastro
+                    </S.NovoCadastro>
+                </S.Header>
             )}
             {children}
         </S.Container>

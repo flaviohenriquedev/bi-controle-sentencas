@@ -2,7 +2,7 @@ import tw from 'tailwind-styled-components'
 
 interface Props {
     alignment?: "left" | "center" | "right"
-    alignmentItem?: "start" | "center" | "end"
+    alignmentitem?: "start" | "center" | "end"
 }
 
 export const Container = tw.div<Props>`
@@ -10,9 +10,9 @@ export const Container = tw.div<Props>`
     p.alignment === "center" ? "justify-center" :
         p.alignment === "right" ? "justify-end" : "justify-start"}
                                                         
-    ${(p) => p.alignmentItem === "start" ? "items-start" :
-    p.alignmentItem === "center" ? "items-center" :
-        p.alignmentItem === "end" ? "items-end"
+    ${(p) => p.alignmentitem === "start" ? "items-start" :
+    p.alignmentitem === "center" ? "items-center" :
+        p.alignmentitem === "end" ? "items-end"
             : "items-end"}
 
     flex

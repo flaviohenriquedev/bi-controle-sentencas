@@ -1,5 +1,9 @@
 import tw from 'tailwind-styled-components'
 
+type Props = {
+    expandido?: boolean
+}
+
 export const Container = tw.div`
     flex
     flex-col
@@ -20,10 +24,11 @@ export const LogoContainer = tw.div`
     min-w-[15rem]
 `
 
-export const Sidemenu = tw.aside`
+export const Sidemenu = tw.aside<Props>`
+    ${p => p.expandido ? 'min-w-[15rem]' : 'min-w-[5rem]' }
+    
     flex
     flex-col
-    min-w-[15rem]
     h-full
     p-1
     gap-5

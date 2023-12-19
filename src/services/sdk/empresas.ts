@@ -1,13 +1,12 @@
 import {axiosInstance} from "@/services";
-import {CompanyClass} from "@/class/CompanyClass";
+import {Empresa} from "@/class/Empresa";
 
-export const getCompany = async ({filtro} : any) => {
+export const getEmpresa = async (empresa: Empresa) => {
     try {
         const res = await axiosInstance({
             method: "get",
-            url: "/empresas" + (filtro && "?filtro=" + filtro),
+            url: "/empresas" + (empresa && empresa.nome && "?filtro=" + empresa.nome),
         });
-
         return Promise.resolve(res);
     } catch (error) {
         return Promise.reject(error);
@@ -27,7 +26,7 @@ export const getEmpresasAutoComplete = async ({filtro} : any) => {
     }
 };
 
-export const salvarEmpresa = async (company: CompanyClass) => {
+export const salvarEmpresa = async (company: Empresa) => {
     try {
         const res = await axiosInstance({
             method: company.id ? "put" : "post",

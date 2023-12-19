@@ -1,14 +1,16 @@
 'use client'
 
 import React from "react";
+import {CommonInterface} from "@/app/interface/CommonInterface";
 
-interface Props {
-    children: React.ReactNode
+interface Props extends CommonInterface{
+    className?: string
 }
 
-export function PageSectionForm({children} : Props) {
+export function PageSectionForm({children, className} : Props) {
     return (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()}
+            className={className}>
             {children}
         </form>
     )

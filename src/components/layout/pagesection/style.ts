@@ -5,11 +5,29 @@ export const Container = tw.section`
     min-h-full
 `
 
-export const Title = tw.label`
+export const Header = tw.label`
     flex
-    p-2
+    items-center
+    w-full
     mb-4
+    gap-2
+`
+
+export const Label = tw.label`
     bg-primary
     text-primary-content
+    p-2
+    w-full
     rounded-lg
+`
+
+export const NovoCadastro = tw.div`
+    bg-success
+    text-center
+    text-success-content
+    p-2
+    w-52
+    rounded-lg
+    
+    hover:cursor-pointer
 `
