@@ -40,7 +40,7 @@ export const salvarEmpresa = async (company: Empresa) => {
     }
 };
 
-export const excluirEmpresa = async ({id} : any) => {
+export const excluirEmpresa = async (id : number) => {
     try {
         const res = await axiosInstance({
             method: "delete",

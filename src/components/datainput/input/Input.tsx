@@ -1,7 +1,8 @@
 import * as S from "./style";
-import { InputHTMLAttributes } from "react";
+import {InputHTMLAttributes} from "react";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {}
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+}
 
 export const Input = ({
                           placeholder,
@@ -11,6 +12,7 @@ export const Input = ({
                           disabled,
                           value,
                           onChange,
+                          onBlur
                       }: Props) => {
     return (
         <S.Input
@@ -21,6 +23,7 @@ export const Input = ({
             disabled={disabled}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
         />
     );
 };

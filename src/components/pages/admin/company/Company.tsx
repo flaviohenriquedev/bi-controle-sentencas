@@ -5,50 +5,23 @@ import {LineContent} from "@/components/layout/linecontent/LineContent";
 import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {Table} from "@/components/datadisplay/table";
-import {getEmpresa, salvarEmpresa} from "@/services";
+import {excluirEmpresa, getEmpresa, salvarEmpresa} from "@/services";
 import {useEffect, useState} from "react";
 import {Empresa} from "@/class/Empresa";
 import {Button} from "@/components/action/button/Button";
 
 export function Company() {
+
     const [abrirFormulario, setAbrirFormulario] = useState<boolean>(false)
     const [empresa, setEmpresa] = useState<Empresa>(new Empresa());
     const [filtroEmpresa, setFiltroEmpresa] = useState<Empresa>(new Empresa())
     const [empresas, setEmpresas] = useState<Empresa[]>([])
 
-    const [filtrarEmpresa, setFiltrarEmpresa] = useState("");
-    const [empresaFiltrada, setEmpresaFiltrada] = useState<Empresa[]>(empresas);
-
     useEffect(() => {
         fetchCadastros()
-        console.log(empresas)
-    }, []);
+    }, [filtroEmpresa]);
 
-    useEffect(() => {
-        const filterMenu = () => {
-            const filteredMap: { [key: string]: Empresa } = {};
-
-            if (empresas) {
-                empresas.forEach((empresa) => {
-                    const filtro: Empresa = {...empresa};
-                    if (
-                        empresa.nome
-                            .toLowerCase()
-                            .includes(filtrarEmpresa.toLowerCase())
-                    ) {
-                        filteredMap[empresa.nome] = filtro;
-                    }
-                });
-            }
-
-            const filtered: Empresa[] = Object.values(filteredMap);
-            setEmpresaFiltrada(filtered);
-        };
-
-        filterMenu();
-    }, [empresas, filtrarEmpresa]);
-
-    const fetchCadastros = async () => {
+    async function fetchCadastros() {
         try {
             const response = await getEmpresa(filtroEmpresa);
             setEmpresas(response.data);
@@ -84,9 +57,20 @@ export function Company() {
         setEmpresa(new Empresa())
     }
 
+    async function handleExcluirEmpresa(id: number) {
+        try {
+            await excluirEmpresa(id);
+
+            const novaListaEmpresas = empresas.filter((empresa) => empresa.id !== id);
+            setEmpresas(novaListaEmpresas);
+        } catch (error) {
+            console.error('Erro ao excluir empresa:', error);
+        }
+    }
+
     return (
-        <Pagesection.Container  titulo={`Cadastro de Empresa`}
-                                metodoAbrirFormulario={novoCadastro}>
+        <Pagesection.Container titulo={`Cadastro de Empresa`}
+                               metodoAbrirFormulario={novoCadastro}>
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`CNPJ`} width={`64rem`}>
@@ -107,24 +91,29 @@ export function Company() {
                             onClick={() => cancelarFormulario()}/>
                 </LineContent>
             </Pagesection.Form>
-
+            <LineContent id={`filtrar-empresa`}>
+                <Input placeholder={`Filtrar por nome`}
+                       onChange={(e) => setFiltroEmpresa({ ...filtroEmpresa, nome: e.target.value })}
+                       value={filtroEmpresa.nome}/>
+            </LineContent>
             <LineContent>
-                <Input onChange={(e) => setFiltrarEmpresa(e.target.value)}/>
                 <Table.Container>
                     <Table.Header>
                         <Table.Row>
                             <Table.Title title={`Linha`}/>
                             <Table.Title title={`CNPJ`}/>
                             <Table.Title title={`Nome`}/>
+                            <Table.Title title={`Ações`}/>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {empresaFiltrada && empresaFiltrada.map((empresa, index) => (
+                        {empresas && empresas.map((empresa, index) => (
                             <Table.Row key={empresa.id}
                                        onDoubleClick={() => handleSelecionarEmpresa(empresa)}>
                                 <Table.Value value={index + 1}/>
                                 <Table.Value value={empresa.cnpj}/>
                                 <Table.Value value={empresa.nome}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirEmpresa(empresa.id)}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

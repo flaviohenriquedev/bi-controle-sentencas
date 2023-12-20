@@ -7,8 +7,9 @@ interface LineContentProps extends HTMLAttributes<HTMLDivElement> {
     alignmentitem?: "start" | "center" | "end";
 }
 
-export function LineContent({children, alignment, alignmentitem, className}: LineContentProps) {
-    return <S.Container className={className}
+export function LineContent({id, children, alignment, alignmentitem, className}: LineContentProps) {
+    return <S.Container id={id}
+                        className={className}
                         alignment={alignment}
                         alignmentitem={alignmentitem}>{children}</S.Container>;
 }

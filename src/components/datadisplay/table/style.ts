@@ -49,7 +49,6 @@ export const Value = tw.td`
     group-hover:text-primary-content
 `
 
-
 export const ValueContent = tw.div<Props>`
         ${(p) => p.alignment === "left" ? "justify-start" :
     p.alignment === "center" ? "justify-center" :
