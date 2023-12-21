@@ -25,14 +25,15 @@ export const LogoContainer = tw.div`
 `
 
 export const Sidemenu = tw.aside<Props>`
-    ${p => p.expandido ? 'min-w-[15rem]' : 'min-w-[5rem]' }
+    ${p => p.expandido ? 'min-w-[15rem]' : 'min-w-[4rem]' }
     
     flex
     flex-col
     h-full
-    p-1
+    p-2
     gap-5
     bg-base-300
+    rounded-lg
 `
 
 export const Content = tw.div`

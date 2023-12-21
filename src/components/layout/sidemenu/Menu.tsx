@@ -2,64 +2,67 @@
 
 import {RouteType} from "@/types/RouteType";
 import {useRouter} from "next/navigation";
+import {useContext, useState} from "react";
+import {SubMenu} from "@/components/layout/sidemenu/Submenu";
+import * as S from './style'
+import {SideMenuContext} from "@/context/app/SideMenuContext";
+import {MdExpandMore} from "react-icons/md";
 
 interface Props {
-    routes: RouteType[]
+    submenu?: RouteType[]
+    description: string;
+    icon?: JSX.Element;
+    href?: string;
 }
 
-export function Menu({routes}: Props) {
+export function Menu({submenu, href, icon, description}: Props) {
 
-    const navigation = useRouter();
+    const route = useRouter();
+    const [menuListClosed, setMenuListClosed] = useState(true);
+    const {expanded, sideMenuEntered} = useContext(SideMenuContext)
 
-    function handleClick(route: RouteType) {
-        return route.href ? navigation.push(route.href) : ''
+    function renderSubMenuItem(routes: RouteType[]) {
+        return routes.map((route) => (
+            <SubMenu
+                key={route.label}
+                description={route.label}
+                href={route.href}
+            >
+                {route.submenu && renderSubMenuItem(route.submenu)}
+            </SubMenu>
+        ));
     }
 
-    function renderMenu() {
-        return routes.map(route => {
-            return <li key={route.label} className={`hover:cursor-pointer`}>
-                <div className={`flex items-center gap-2 w-full `}
-                     onClick={() => handleClick(route)}>
-                    <div>
-                        {route.icon}
-                    </div>
-                    <div>
-                        {route.label}
-                    </div>
+    function handleClick() {
+        if (submenu) {
+            setMenuListClosed(!menuListClosed);
+        } else if (href) {
+            route.push(
+                href.startsWith("/") ? href : "/" + href
+            );
+        }
+    }
+    return (
+        <S.SideMenuItem expanded={!menuListClosed} id="side_menu_item">
+            <S.SideMenuItemHeader id="side_menu_item_header" onClick={() => handleClick()} expanded={!menuListClosed}>
+                <div className="flex justify-between items-center">
+                    <S.IconContainer id="side_menu_icon">{icon}</S.IconContainer>
+                    <S.DescriptionContainer expanded={expanded || sideMenuEntered}>
+                        {description}
+                    </S.DescriptionContainer>
                 </div>
+                {(expanded || sideMenuEntered) && submenu && submenu.length > 0 && (
+                    <S.ExpandIcon expanded={!menuListClosed}>
+                        <MdExpandMore/>
+                    </S.ExpandIcon>
+                )}
+            </S.SideMenuItemHeader>
 
-                {route.submenu && <Submenu routes={route.submenu}/>}
-            </li>
-        })
-    }
-
-    return (
-        <ul>
-            {renderMenu()}
-        </ul>
-    )
-}
-
-function Submenu({routes}: Props) {
-    const navigation = useRouter();
-
-    function handleClick(route: RouteType) {
-        return route.href ? navigation.push(route.href) : ''
-    }
-
-    function renderSubMenu() {
-        return <ul className={`pl-8`}>
-            {
-                routes.map(route => (
-                    <li key={route.label}
-                        onClick={() => handleClick(route)}
-                        className={`hover:cursor-pointer`}>{route.label}</li>
-                ))
-            }
-        </ul>
-    }
-
-    return (
-        <>{renderSubMenu()}</>
-    )
+            {submenu && (expanded || sideMenuEntered) && (
+                <S.SideMenuSubList closed={menuListClosed}>
+                    {renderSubMenuItem(submenu)}
+                </S.SideMenuSubList>
+            )}
+        </S.SideMenuItem>
+    );
 }

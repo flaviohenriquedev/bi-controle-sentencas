@@ -4,7 +4,7 @@ import {Icons} from "@/components/icons/Icons";
 export const Routes: RouteType[] = [
     {
         label: "Administração",
-        icon: Icons.admin,
+        icon: Icons.administracao,
         submenu: [
             {
                 label: "Empresas",
@@ -18,7 +18,7 @@ export const Routes: RouteType[] = [
     },
     {
         label: "Cadastros",
-        icon: Icons.admin,
+        icon: Icons.cadastro,
         submenu: [
             {
                 label: "Advogados",
@@ -48,7 +48,7 @@ export const Routes: RouteType[] = [
     },
     {
         label: "Processos",
-        icon: Icons.protocol,
+        icon: Icons.protocolo,
         href: "/manager/processos"
     },
 ]
