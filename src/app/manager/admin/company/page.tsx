@@ -1,7 +1,7 @@
-import {Company} from "@/components/pages/admin/company/Company";
+import {EmpresaComponet} from "@/components/pages/admin/company/EmpresaComponet";
 
 export default function AdminCompanyPage() {
     return (
-        <Company />
+        <EmpresaComponet />
     )
 }

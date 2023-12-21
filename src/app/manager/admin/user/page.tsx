@@ -1,7 +1,7 @@
-import {Usuario} from "@/components/pages/admin/usuario/Usuario";
+import {UsuarioComponent} from "@/components/pages/admin/usuario/UsuarioComponent";
 
 export default function PaginaUsuario() {
     return (
-        <Usuario />
+        <UsuarioComponent/>
     )
 }

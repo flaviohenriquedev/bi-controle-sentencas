@@ -22,28 +22,33 @@ export const Routes: RouteType[] = [
         submenu: [
             {
                 label: "Advogados",
-                href: "/manager/admin/company"
+                href: "/manager/cadastros/advogados"
             },
             {
                 label: "Andamentos",
-                href: "/manager/admin/user"
+                href: "/manager/cadastros/andamentos"
             },
             {
                 label: "Clientes",
-                href: "/manager/admin/user"
+                href: "/manager/cadastros/clientes"
             },
             {
                 label: "Comarcas",
-                href: "/manager/admin/user"
+                href: "/manager/cadastros/comarcas"
             },
             {
                 label: "Naturezas",
-                href: "/manager/admin/user"
+                href: "/manager/cadastros/naturezas"
             },
             {
                 label: "Relatórios",
-                href: "/manager/admin/user"
+                href: "/manager/cadastros/relatorios"
             }
         ]
+    },
+    {
+        label: "Processos",
+        icon: Icons.protocol,
+        href: "/manager/processos"
     },
 ]
