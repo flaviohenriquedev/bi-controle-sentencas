@@ -29,6 +29,7 @@ export const Footer = tw.tfoot`
 
 export const Row = tw.tr`
     group
+    h-6
 `
 
 export const Title = tw.th`
@@ -36,6 +37,7 @@ export const Title = tw.th`
     text-base-content
     border-2
     border-base-100
+    h-6
 `
 
 export const Value = tw.td`

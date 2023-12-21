@@ -3,14 +3,15 @@ import {MdDeleteOutline} from "react-icons/md";
 
 interface Props {
     metodoExcluir?: (id: any) => void
+    alignment?: "left" | "center" | "right"
 }
 
-export function TableActions({metodoExcluir}: Props) {
+export function TableActions({metodoExcluir, alignment = "center"}: Props) {
     return (
         <S.Value>
-            <div onClick={metodoExcluir}>
+            <S.ValueContent onClick={metodoExcluir} alignment={alignment}>
                 <MdDeleteOutline/>
-            </div>
+            </S.ValueContent>
         </S.Value>
     )
 }

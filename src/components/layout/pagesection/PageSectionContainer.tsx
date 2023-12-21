@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from './style'
-import {CommonInterface} from "@/app/interface/CommonInterface";
+import {CommonInterface} from "@/interface/CommonInterface";
 import {Header} from "./style";
 
 interface Props extends CommonInterface{

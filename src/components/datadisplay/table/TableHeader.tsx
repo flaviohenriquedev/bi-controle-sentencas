@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 import * as S from './style'
-import {CommonInterface} from "@/app/interface/CommonInterface";
+import {CommonInterface} from "@/interface/CommonInterface";
 
 interface Props extends CommonInterface {}
 

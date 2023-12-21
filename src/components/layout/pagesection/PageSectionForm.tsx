@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {CommonInterface} from "@/app/interface/CommonInterface";
+import {CommonInterface} from "@/interface/CommonInterface";
 
 interface Props extends CommonInterface{
     className?: string
