@@ -7,11 +7,12 @@ interface Props extends HTMLAttributes<HTMLButtonElement>{
     type?: ButtonType
 }
 
-export function Button({identifier, type = 'info', onClick} : Props) {
+export function Button({identifier, type = 'info', onClick, className} : Props) {
     return (
         <S.ButtonStyle
             typebutton={type}
-            onClick={onClick}>
+            onClick={onClick}
+            className={className}>
             {identifier}
         </S.ButtonStyle>
     )

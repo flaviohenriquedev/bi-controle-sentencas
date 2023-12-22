@@ -3,9 +3,10 @@
 import * as S from './style'
 import {RouteType} from "@/types/RouteType";
 import {Menu} from "@/components/layout/sidemenu/Menu";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {SideMenuContext} from "@/context/app/SideMenuContext";
-import { IoIosMenu } from "react-icons/io";
+import {IoIosMenu} from "react-icons/io";
+import {Input} from "@/components/datainput/input/Input";
 
 
 interface Props {
@@ -13,11 +14,54 @@ interface Props {
 }
 
 export function AppLayoutSideMenu({routes}: Props) {
-    const [expandido, setExpandido] = useState<boolean>(true)
     const {expanded, setExpanded} = useContext(SideMenuContext)
+    const [searchMenu, setSearchMenu] = useState("");
+    const [filteredData, setFilteredData] = useState<RouteType[]>(routes);
+
+    useEffect(() => {
+        const filterMenu = () => {
+            const filteredMap: { [key: string]: RouteType } = {};
+
+            if (routes) {
+                routes.forEach((d) => {
+                    const filteredMenu: RouteType = {...d};
+                    if (
+                        d.label
+                            .toLowerCase()
+                            .includes(searchMenu.toLowerCase()) ||
+                        (d.submenu &&
+                            d.submenu.some((sub) =>
+                                sub.label
+                                    .toLowerCase()
+                                    .includes(searchMenu.toLowerCase())
+                            ))
+                    ) {
+                        filteredMap[d.label] = filteredMenu;
+                    }
+
+                    if (d.submenu) {
+                        const filteredSubmenu = d.submenu.filter((sub) =>
+                            sub.label
+                                .toLowerCase()
+                                .includes(searchMenu.toLowerCase())
+                        );
+                        if (filteredSubmenu.length > 0) {
+                            filteredMenu.submenu = filteredSubmenu;
+                            filteredMap[d.label] = filteredMenu;
+                        }
+                    }
+                });
+            }
+
+            const filtered: RouteType[] = Object.values(filteredMap);
+            setFilteredData(filtered);
+        };
+
+        filterMenu();
+    }, [routes, searchMenu]);
 
     function renderMenu() {
-        return routes.map((route) => {
+        return filteredData.map((route) => {
             return (
                 <Menu
                     key={route.label}
@@ -31,15 +75,12 @@ export function AppLayoutSideMenu({routes}: Props) {
     }
     return (
         <S.Sidemenu expandido={expanded}>
-            <div className={`flex ${expanded ? 'justify-end' : 'justify-center' } items-center w-full`}>
+            <div className={`flex ${expanded ? 'justify-between' : 'justify-center'} items-center w-full p-2`}>
+                <Input placeholder={`Buscar Menu`} className={`${expanded ? 'block' : 'hidden'}`}
+                       onChange={(e) => setSearchMenu(e.target.value)}/>
                 <button onClick={() => setExpanded(!expanded)}
                         className={`flex justify-center items-center w-8 h-8 p-1 bg-base-100 text-base-content rounded-full`}><IoIosMenu size={25}/></button>
             </div>
-
-            {/*<div className={`${expandido ? 'block' : 'hidden'} flex w-full gap-1`}>*/}
-            {/*    <input placeholder={`Buscar Menu`}/>*/}
-            {/*</div>*/}
-
             {renderMenu()}
         </S.Sidemenu>
     )

@@ -10,7 +10,7 @@ import {useEffect, useState} from "react";
 import {Empresa} from "@/class/Empresa";
 import {Button} from "@/components/action/button/Button";
 
-export function EmpresaComponet() {
+export function EmpresaComponete() {
 
     const [abrirFormulario, setAbrirFormulario] = useState<boolean>(false)
     const [empresa, setEmpresa] = useState<Empresa>(new Empresa());
@@ -90,9 +90,11 @@ export function EmpresaComponet() {
                 </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-empresa`}>
-                <Input placeholder={`Filtrar por nome`}
-                       onChange={(e) => setFiltroEmpresa({ ...filtroEmpresa, nome: e.target.value })}
-                       value={filtroEmpresa.nome}/>
+                <LabelContainer>
+                    <Input placeholder={`Filtrar por nome`}
+                           onChange={(e) => setFiltroEmpresa({ ...filtroEmpresa, nome: e.target.value })}
+                           value={filtroEmpresa.nome}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

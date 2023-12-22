@@ -5,7 +5,7 @@ import {FaAsterisk} from "react-icons/fa";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode
-    title: string
+    title?: string
     width?: string
     notNull?: boolean
 }

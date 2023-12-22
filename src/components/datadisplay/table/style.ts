@@ -30,6 +30,7 @@ export const Footer = tw.tfoot`
 export const Row = tw.tr`
     group
     h-6
+    rounded-lg
 `
 
 export const Title = tw.th`

@@ -12,9 +12,15 @@ export const Container = tw.div`
 `
 
 export const Header = tw.header`
+    fixed
+    
+    justify-between
+    items-center
+    
     flex
     w-full
     min-h-[4rem]
+    bg-base-200
 `
 
 export const LogoContainer = tw.div`
@@ -27,16 +33,25 @@ export const LogoContainer = tw.div`
 export const Sidemenu = tw.aside<Props>`
     ${p => p.expandido ? 'min-w-[15rem]' : 'min-w-[4rem]' }
     
+    fixed
+    
     flex
     flex-col
     h-full
-    p-2
     gap-5
-    bg-base-300
+    bg-base-200
     rounded-lg
+    mt-[5rem]
 `
 
-export const Content = tw.div`
+export const Content = tw.div<Props>`
+    ${p => p.expandido ? 'ml-[15rem]' : 'ml-[4rem]' }
+
     w-full
     h-full
+    pt-[5rem]
+    px-2
+    
+    transition-all
+    duration-200
 `

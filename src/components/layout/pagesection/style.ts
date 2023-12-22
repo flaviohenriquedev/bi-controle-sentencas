@@ -19,6 +19,7 @@ export const Label = tw.label`
     p-2
     w-full
     rounded-lg
+    font-bold
 `
 
 export const NovoCadastro = tw.div`
@@ -30,4 +31,11 @@ export const NovoCadastro = tw.div`
     rounded-lg
     
     hover:cursor-pointer
+`
+
+export const FormContainer = tw.div`
+    bg-base-200
+    rounded-lg
+    p-2
+    mb-2
 `

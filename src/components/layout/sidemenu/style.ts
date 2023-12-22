@@ -33,9 +33,12 @@ export const SideMenuItemHeader = tw.h2<SideMenuItemHeaderInterface>`
     
 `;
 
-export const IconContainer = tw.div`s
-    ml-4
-    mr-5
+export const IconContainer = tw.div`
+    flex
+    justify-center
+    items-center
+    max-w-[4rem]
+    min-w-[4rem]
 `;
 
 export const ExpandIcon = tw.div<SideMenuItemHeaderInterface>`
@@ -67,7 +70,7 @@ export const SideMenuSubItem = tw.li`
     flex
     flex-col
     my-1
-    pl-3
+    pl-6
     py-1
     rounded-lg
     
@@ -79,7 +82,7 @@ export const SideMenuSubItem = tw.li`
 export const SideMenuSubItemDescription = tw.div`
     flex
     items-center
-    text-[9pt]
+    text-[10pt]
     hover:cursor-pointer
 `;
 

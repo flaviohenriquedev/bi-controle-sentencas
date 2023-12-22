@@ -87,9 +87,11 @@ export function AndamentosComponente() {
                 </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-advogado`}>
-                <Input placeholder={`Filtrar por descrição`}
-                       onChange={(e) => setFiltroAndamento({...filtroAndamento, descricao: e.target.value})}
-                       value={filtroAndamento.descricao}/>
+                <LabelContainer>
+                    <Input placeholder={`Filtrar por descrição`}
+                           onChange={(e) => setFiltroAndamento({...filtroAndamento, descricao: e.target.value})}
+                           value={filtroAndamento.descricao}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

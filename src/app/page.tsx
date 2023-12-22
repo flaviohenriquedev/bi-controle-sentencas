@@ -1,9 +1,7 @@
-import Link from "next/link";
+import {PaginaDeLogin} from "@/components/pages/login/PaginaDeLogin";
 
 export default function Home() {
   return (
-    <main>
-        <Link href={`./manager`}>Logar</Link>
-    </main>
+    <PaginaDeLogin />
   )
 }

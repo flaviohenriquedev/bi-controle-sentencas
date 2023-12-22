@@ -112,7 +112,7 @@ export function ClientesComponente() {
                                 <Table.Value value={index + 1}/>
                                 <Table.Value value={cliente.nome}/>
                                 <Table.Value value={cliente.cpf}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirCliente(cliente.id)}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirCliente(cliente.id)} />
                             </Table.Row>
                         ))}
                     </Table.Body>

@@ -1,4 +1,5 @@
 import * as S from './style'
+import {Avatar} from "@/components/datadisplay/avatar";
 
 export function AppLayoutHeader() {
     return (
@@ -6,6 +7,9 @@ export function AppLayoutHeader() {
             <S.LogoContainer>
                 LOGO
             </S.LogoContainer>
+            <div>
+                <Avatar />
+            </div>
         </S.Header>
     )
 }
