@@ -20,6 +20,7 @@ export const Header = tw.header`
     flex
     w-full
     min-h-[4rem]
+    max-h-[4rem]
     bg-base-200
 `
 
@@ -27,7 +28,12 @@ export const LogoContainer = tw.div`
     flex
     justify-center
     items-center
-    min-w-[15rem]
+    px-2
+    gap-2
+    rounded-lg
+    
+    hover:bg-base-100
+    hover:cursor-pointer
 `
 
 export const Sidemenu = tw.aside<Props>`

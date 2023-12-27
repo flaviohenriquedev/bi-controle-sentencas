@@ -1,27 +1,29 @@
+'use client'
+
 import * as React from "react";
 import { useContext, useState, useEffect, createContext } from "react";
 
 import { setToken } from "@/services";
 
-const AuthContext = createContext([{}, () => {}]);
+const AuthContext = createContext<[any, React.Dispatch<React.SetStateAction<any>>]>([{}, () => {}]);
 
 export const useAuth = () => {
     const [state, setState] = useContext(AuthContext);
 
     const logout = () => {
-        // setState(false);
+        setState(false);
         setToken(false);
     };
 
-    // const login = (auth) => {
-    //     setState(auth);
-    //     setToken(auth.token);
-    // };
+    const login = (auth: any) => {
+        setState(auth);
+        setToken(auth.token);
+    };
 
-    return [state, { logout }];
+    return [state, { login, logout }];
 };
 
-export const AuthProvider = ({ children } : {children: React.ReactNode}) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, setState] = useState(() => {
         const data = window.localStorage.getItem("auth");
 

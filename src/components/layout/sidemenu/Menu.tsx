@@ -45,7 +45,7 @@ export function Menu({submenu, href, icon, description}: Props) {
     return (
         <S.SideMenuItem expanded={!menuListClosed} id="side_menu_item">
             <S.SideMenuItemHeader id="side_menu_item_header" onClick={() => handleClick()} expanded={!menuListClosed}>
-                <div className="flex justify-between items-center">
+                <div className={`flex justify-between items-center group`}>
                     <S.IconContainer id="side_menu_icon">{icon}</S.IconContainer>
                     <S.DescriptionContainer expanded={expanded || sideMenuEntered}>
                         {description}

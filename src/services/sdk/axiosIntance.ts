@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const auth = {};
+const auth = {token: false};
 
-export const setToken = (token) => {
+export const setToken = (token: boolean) => {
   auth.token = token;
 };
 
@@ -12,12 +12,9 @@ const endpoints = {
     "http://localhost:3001/",
 };
 
-export const baseURL =
-  endpoints?.[process.env.REACT_APP_API_ENV] ||
-  process.env.REACT_APP_CUSTOM_URL ||
-  endpoints.develop;
+export const baseURL =  endpoints.develop;
 
-export const axiosInstance = (params) =>
+export const axiosInstance = (params: any) =>
   axios({
     baseURL,
     ...params,

@@ -1,3 +1,5 @@
+'use client'
+
 import * as S from "./style";
 
 import Image from "next/image";
@@ -5,8 +7,10 @@ import Profile from "../../../../public/profile.jpg";
 import Link from "next/link";
 import {IoKeyOutline} from "react-icons/io5";
 import {RxExit} from "react-icons/rx";
+import {useRouter} from "next/navigation";
 
 export const Avatar = () => {
+
     return (
         <div className="flex items-center dropdown dropdown-end">
             <label
@@ -24,18 +28,14 @@ export const Avatar = () => {
                         <div>
                             <IoKeyOutline/>
                         </div>
-                        <span>
-                        Alterar Senha
-                    </span>
+                        <span>Alterar Senha</span>
                     </Link>
                     <hr/>
                     <Link href="/" className={`flex gap-2 items-center`}>
                         <div>
                             <RxExit/>
                         </div>
-                        <span>
-                        Sair
-                    </span>
+                        <span>Sair</span>
                     </Link>
                 </div>
             </ul>

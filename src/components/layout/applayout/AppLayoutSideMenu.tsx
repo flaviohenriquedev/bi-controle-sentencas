@@ -73,6 +73,7 @@ export function AppLayoutSideMenu({routes}: Props) {
             );
         });
     }
+
     return (
         <S.Sidemenu expandido={expanded}>
             <div className={`flex ${expanded ? 'justify-between' : 'justify-center'} items-center w-full p-2`}>
