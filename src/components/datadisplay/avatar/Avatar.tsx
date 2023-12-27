@@ -7,7 +7,6 @@ import Profile from "../../../../public/profile.jpg";
 import Link from "next/link";
 import {IoKeyOutline} from "react-icons/io5";
 import {RxExit} from "react-icons/rx";
-import {useRouter} from "next/navigation";
 
 export const Avatar = () => {
 
