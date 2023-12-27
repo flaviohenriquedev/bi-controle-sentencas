@@ -10,6 +10,11 @@ import {useEffect, useState} from "react";
 import {Empresa} from "@/class/Empresa";
 import {Button} from "@/components/action/button/Button";
 
+export type TAcoesFormulario = {
+    valor: any
+    funcao: (() => void) | ((valor: any) => void);
+}
+
 export function EmpresaComponete() {
 
     const [abrirFormulario, setAbrirFormulario] = useState<boolean>(false)
@@ -39,9 +44,9 @@ export function EmpresaComponete() {
         setAbrirFormulario(true)
     }
 
-    async function handleSalvarEmpresa(empresa: Empresa) {
-        await salvarEmpresa(empresa);
-        await fetchCadastros();
+    function handleSalvarEmpresa(empresa: Empresa) {
+        salvarEmpresa(empresa);
+        fetchCadastros();
         setEmpresa(new Empresa())
         setFiltroEmpresa(new Empresa())
         setAbrirFormulario(false)
@@ -66,10 +71,17 @@ export function EmpresaComponete() {
         }
     }
 
+    const objetoNovoCadastro: TAcoesFormulario = {valor: abrirFormulario, funcao: () => setAbrirFormulario(!abrirFormulario)}
+    const objetoSalvarCadastro: TAcoesFormulario = {valor: '', funcao: () => handleSalvarEmpresa(empresa)}
+    const objetoCancelarCadastro: TAcoesFormulario = {valor: '', funcao: () => cancelarFormulario()}
+
     return (
         <Pagesection.Container titulo={`Cadastro de Empresa`}
-                               metodoAbrirFormulario={novoCadastro}>
-            <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
+            <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>funca
                 <LineContent>
                     <LabelContainer title={`CNPJ`} width={`64rem`}>
                         <Input/>
@@ -79,14 +91,6 @@ export function EmpresaComponete() {
                         <Input onChange={(e) => setEmpresa({...empresa, nome: e.target.value})}
                                value={empresa.nome}/>
                     </LabelContainer>
-                </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarEmpresa(empresa)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
                 </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-empresa`}>

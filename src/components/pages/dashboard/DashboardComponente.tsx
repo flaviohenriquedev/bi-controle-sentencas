@@ -118,7 +118,7 @@ export default function DashboardComponente() {
                         templateColumns="repeat(2, 1fr)"
                         gap={4}
                     >
-                        <GridItem rowSpan={1} colSpan={1} onClick={() => alert("Oi")}>
+                        <GridItem rowSpan={1} colSpan={1}>
                             <Bar data={data}/>
                         </GridItem>
                         <GridItem rowSpan={1} colSpan={1}>

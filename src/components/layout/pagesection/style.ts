@@ -1,5 +1,9 @@
 import tw from 'tailwind-styled-components'
 
+type Props = {
+    tipo?: 'salvar' | 'cancelar' | 'novo'
+}
+
 export const Container = tw.section`
     w-full
     min-h-full
@@ -22,10 +26,14 @@ export const Label = tw.label`
     font-bold
 `
 
-export const NovoCadastro = tw.div`
-    bg-success
+export const Botao = tw.div<Props>`
+    
+    ${(p) => (p.tipo === 'novo' ? 'bg-info text-info-content' :
+    'salvar' ? 'bg-success text-success-content' :
+        'cancelar' ? 'bg-warning text-warning-content' :
+            'bg-info text-info-content')}
+
     text-center
-    text-success-content
     p-2
     w-52
     rounded-lg
