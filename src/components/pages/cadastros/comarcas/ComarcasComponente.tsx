@@ -6,9 +6,9 @@ import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {excluirComarca, getComarcas, salvarComarca} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Comarca} from "@/class/Comarca";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function ComarcasComponente() {
 
@@ -66,10 +66,19 @@ export function ComarcasComponente() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarComarca(comarca)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Comarcas`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Descrição`}>
@@ -90,19 +99,12 @@ export function ComarcasComponente() {
                                value={comarca.municipio}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarComarca(comarca)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-Comarca`}>
-                <Input placeholder={`Filtrar por descrição`}
-                       onChange={(e) => setFiltroComarca({...filtroComarca, descricao: e.target.value})}
+                <LabelContainer>
+                    <Input onChange={(e) => setFiltroComarca({...filtroComarca, descricao: e.target.value})}
                        value={filtroComarca.descricao}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

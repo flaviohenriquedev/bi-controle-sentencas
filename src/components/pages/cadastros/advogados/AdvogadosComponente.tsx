@@ -7,8 +7,8 @@ import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {Advogado} from "@/class/Advogado";
 import {excluirAdvogado, getAdvogados, salvarAdvogado} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function AdvogadosComponente() {
 
@@ -66,10 +66,19 @@ export function AdvogadosComponente() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarAdvogado(advogado)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Advogado`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Nome`}>
@@ -77,19 +86,12 @@ export function AdvogadosComponente() {
                                value={advogado.nome}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarAdvogado(advogado)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-advogado`}>
-                <Input placeholder={`Filtrar por nome`}
-                       onChange={(e) => setFiltroAdvogado({...filtroAdvogado, nome: e.target.value})}
+                <LabelContainer>
+                    <Input onChange={(e) => setFiltroAdvogado({...filtroAdvogado, nome: e.target.value})}
                        value={filtroAdvogado.nome}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

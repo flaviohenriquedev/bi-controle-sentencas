@@ -47,9 +47,8 @@ export const Value = tw.td`
     border
     border-base-200
     
-    group-hover:cursor-pointer
-    group-hover:bg-primary-focus
-    group-hover:text-primary-content
+    group-hover:bg-secondary
+    group-hover:text-secondary-content
 `
 
 export const ValueContent = tw.div<Props>`

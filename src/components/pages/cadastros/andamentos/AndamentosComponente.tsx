@@ -9,6 +9,7 @@ import {excluirAndamento, getAndamentos, salvarAndamento} from "@/services";
 import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Andamento} from "@/class/Andamento";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function AndamentosComponente() {
 
@@ -66,10 +67,19 @@ export function AndamentosComponente() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarAndamento(andamento)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Andamento`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Descrição`}>
@@ -77,19 +87,10 @@ export function AndamentosComponente() {
                                value={andamento.descricao}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarAndamento(andamento)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-advogado`}>
                 <LabelContainer>
-                    <Input placeholder={`Filtrar por descrição`}
-                           onChange={(e) => setFiltroAndamento({...filtroAndamento, descricao: e.target.value})}
+                    <Input onChange={(e) => setFiltroAndamento({...filtroAndamento, descricao: e.target.value})}
                            value={filtroAndamento.descricao}/>
                 </LabelContainer>
             </LineContent>

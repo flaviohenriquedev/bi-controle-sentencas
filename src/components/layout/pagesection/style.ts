@@ -29,8 +29,8 @@ export const Label = tw.label`
 export const Botao = tw.div<Props>`
     
     ${(p) => (p.tipo === 'novo' ? 'bg-info text-info-content' :
-    'salvar' ? 'bg-success text-success-content' :
-        'cancelar' ? 'bg-warning text-warning-content' :
+    p.tipo === 'salvar' ? 'bg-success text-success-content' :
+        p.tipo === 'cancelar' ? 'bg-warning text-warning-content' :
             'bg-info text-info-content')}
 
     text-center

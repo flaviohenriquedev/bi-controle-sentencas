@@ -1,14 +1,13 @@
 import React from "react";
 import * as S from './style'
 import {CommonInterface} from "@/interface/CommonInterface";
-import {TAcoesFormulario} from "@/components/pages/admin/company/EmpresaComponete";
-import {Empresa} from "@/class/Empresa";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 interface Props extends CommonInterface{
     titulo?: string
-    objetoNovoCadastro?: TAcoesFormulario
-    objetoSalvarCadastro?: TAcoesFormulario
-    objetoCancelarCadastro?: TAcoesFormulario
+    objetoNovoCadastro?: AcoesFormularioType
+    objetoSalvarCadastro?: AcoesFormularioType
+    objetoCancelarCadastro?: AcoesFormularioType
 }
 
 export function PageSectionContainer({

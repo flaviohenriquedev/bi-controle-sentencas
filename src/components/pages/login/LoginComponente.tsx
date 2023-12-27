@@ -15,7 +15,7 @@ type User = {
     password: string
 }
 
-export function PaginaDeLogin() {
+export function LoginComponente() {
 
     const route = useRouter()
     const [, {login: setAuth}] = useAuth();
@@ -44,8 +44,11 @@ export function PaginaDeLogin() {
 
         login({username, password})
             .then((response) => {
+                console.log('RESPOSTA LOGIN', response.data);
                 const {usuario, token, nomeUsuario} = response.data;
                 setAuth({usuario, token, nomeUsuario});
+
+                console.log('TOKEN', token)
 
                 if (rememberMe) {
                     localStorage.setItem("rememberedUser", username);
@@ -56,7 +59,7 @@ export function PaginaDeLogin() {
                 }
             })
             .catch((error) => {
-                console.error(error.response.data);
+                console.error('ERRO ERRO', error.response.data);
             });
     };
 

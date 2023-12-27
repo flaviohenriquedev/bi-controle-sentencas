@@ -6,9 +6,9 @@ import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {excluirNatureza, getNaturezas, salvarNatureza} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Natureza} from "@/class/Natureza";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function NaturezasComponente() {
 
@@ -66,10 +66,19 @@ export function NaturezasComponente() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarNatureza(natureza)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Naturezas`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Descrição`}>
@@ -77,19 +86,12 @@ export function NaturezasComponente() {
                                value={natureza.descricao}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarNatureza(natureza)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-Natureza`}>
-                <Input placeholder={`Filtrar por descrição`}
-                       onChange={(e) => setFiltroNatureza({...filtroNatureza, descricao: e.target.value})}
+                <LabelContainer>
+                    <Input onChange={(e) => setFiltroNatureza({...filtroNatureza, descricao: e.target.value})}
                        value={filtroNatureza.descricao}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

@@ -7,8 +7,8 @@ import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {Usuario} from "@/class/Usuario";
 import {excluirUsuario, getUsuarios, salvarUsuario} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function UsuarioComponent() {
 
@@ -66,9 +66,18 @@ export function UsuarioComponent() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarUsuario(usuario)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
+
     return (
         <Pagesection.Container titulo={`Cadastro de Usuário`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}>
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Nome`}>
@@ -82,19 +91,12 @@ export function UsuarioComponent() {
                                value={usuario.email}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarUsuario(usuario)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-usuario`}>
-                <Input placeholder={`Filtrar por nome`}
-                       onChange={(e) => setFiltroUsuario({...filtroUsuario, nome: e.target.value})}
+                <LabelContainer>
+                    <Input onChange={(e) => setFiltroUsuario({...filtroUsuario, nome: e.target.value})}
                        value={filtroUsuario.nome}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

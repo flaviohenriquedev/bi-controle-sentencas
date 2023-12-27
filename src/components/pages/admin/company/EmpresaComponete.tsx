@@ -8,12 +8,7 @@ import {Table} from "@/components/datadisplay/table";
 import {excluirEmpresa, getEmpresa, salvarEmpresa} from "@/services";
 import {useEffect, useState} from "react";
 import {Empresa} from "@/class/Empresa";
-import {Button} from "@/components/action/button/Button";
-
-export type TAcoesFormulario = {
-    valor: any
-    funcao: (() => void) | ((valor: any) => void);
-}
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function EmpresaComponete() {
 
@@ -37,7 +32,7 @@ export function EmpresaComponete() {
             //     toast.error(error.message);
             // }
         }
-    };
+    }
 
     function novoCadastro() {
         setEmpresa(new Empresa())
@@ -65,15 +60,18 @@ export function EmpresaComponete() {
     async function handleExcluirEmpresa(id: number) {
         try {
             await excluirEmpresa(id);
-            setEmpresas(empresas.filter((empresa) => empresa.id !== id));
+            setEmpresas(empresas.filter((ep) => ep.id !== id));
         } catch (error) {
             console.error('Erro ao excluir empresa:', error);
         }
     }
 
-    const objetoNovoCadastro: TAcoesFormulario = {valor: abrirFormulario, funcao: () => setAbrirFormulario(!abrirFormulario)}
-    const objetoSalvarCadastro: TAcoesFormulario = {valor: '', funcao: () => handleSalvarEmpresa(empresa)}
-    const objetoCancelarCadastro: TAcoesFormulario = {valor: '', funcao: () => cancelarFormulario()}
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarEmpresa(empresa)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Empresa`}
@@ -81,10 +79,10 @@ export function EmpresaComponete() {
                                objetoSalvarCadastro={objetoSalvarCadastro}
                                objetoCancelarCadastro={objetoCancelarCadastro}
         >
-            <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>funca
+            <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`CNPJ`} width={`64rem`}>
-                        <Input/>
+                        <Input />
                     </LabelContainer>
 
                     <LabelContainer title={`Razão Social`}>
@@ -111,13 +109,14 @@ export function EmpresaComponete() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {empresas && empresas.map((empresa, index) => (
-                            <Table.Row key={empresa.id}
-                                       onDoubleClick={() => handleSelecionarEmpresa(empresa)}>
+                        {empresas && empresas.map((e, index) => (
+                            <Table.Row key={e.id}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={empresa.cnpj}/>
-                                <Table.Value value={empresa.nome}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirEmpresa(empresa.id)}/>
+                                <Table.Value value={e.cnpj}/>
+                                <Table.Value value={e.nome}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirEmpresa(e.id)}
+                                               metodoEditar={() => handleSelecionarEmpresa(e)}
+                                               objeto={e}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

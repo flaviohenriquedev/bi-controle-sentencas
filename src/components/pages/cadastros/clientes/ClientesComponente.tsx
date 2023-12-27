@@ -6,9 +6,9 @@ import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {excluirCliente, getClientes, salvarCliente} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Cliente} from "@/class/Cliente";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function ClientesComponente() {
 
@@ -66,10 +66,19 @@ export function ClientesComponente() {
         }
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarCliente(cliente)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
     return (
         <Pagesection.Container titulo={`Cadastro de Clientes`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`CPF`}>
@@ -81,19 +90,12 @@ export function ClientesComponente() {
                                value={cliente.nome}/>
                     </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarCliente(cliente)}/>
-
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
-                </LineContent>
             </Pagesection.Form>
             <LineContent id={`filtrar-cliente`}>
-                <Input placeholder={`Filtrar por nome`}
-                       onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                <LabelContainer>
+                    <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
                        value={filtroCliente.nome}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

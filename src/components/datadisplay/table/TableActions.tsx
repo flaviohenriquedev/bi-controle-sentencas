@@ -1,18 +1,61 @@
 import * as S from './style'
-import {MdDeleteOutline} from "react-icons/md";
+import {AiFillDelete} from "react-icons/ai";
+import {Modal} from "@/components/datadisplay/modal";
+import {closeModal, openModal} from "@/functions/functions";
+import {ModalFooter} from "@/components/datadisplay/modal/ModalFooter";
+import {Button} from "@/components/action/button/Button";
+import {LineContent} from "@/components/layout/linecontent/LineContent";
+import {FaEdit} from "react-icons/fa";
 
 interface Props {
-    metodoExcluir?: (id: any) => void
+    metodoExcluir?: (valor: number) => void
+    metodoEditar?: (objeto: any) => void
+    objeto: any
     alignment?: "left" | "center" | "right"
-    classname?: string
 }
 
-export function TableActions({metodoExcluir, alignment = "center", classname}: Props) {
+export function TableActions({metodoExcluir, metodoEditar, objeto, alignment = "center"}: Props) {
+
+    const modalId = `confirmar_exclusao_${objeto.id}`
+
+    function handleExcluirRegistro(id: number){
+        console.log('OBJ', id)
+        metodoExcluir && metodoExcluir(id)
+        closeModal(modalId)
+    }
+
     return (
-        <S.Value className={classname}>
-            <S.ValueContent onClick={metodoExcluir} alignment={alignment}>
-                <MdDeleteOutline/>
-            </S.ValueContent>
-        </S.Value>
+        <>
+            <S.Value>
+                <div className={`flex`}>
+                    {metodoExcluir && (
+                        <S.ValueContent onClick={() => openModal(modalId)} alignment={alignment}
+                                        className={`text-error hover:cursor-pointer`}>
+                            <AiFillDelete size={17}/>
+                        </S.ValueContent>
+                    )}
+
+                    {metodoEditar && (
+                        <S.ValueContent onClick={metodoEditar} alignment={alignment}
+                                        className={`text-warning hover:cursor-pointer`}>
+                            <FaEdit size={17}/>
+                        </S.ValueContent>
+                    )}
+                </div>
+            </S.Value>
+            <Modal.Container id={modalId}>
+                <Modal.Content>
+                    <LineContent>
+                        <label>TEM CERTEZA QUE DESEJA EXCLUIR ESSE REGISTRO?</label>
+                    </LineContent>
+                </Modal.Content>
+                <ModalFooter>
+                    <LineContent alignment={`center`}>
+                        <Button identifier={`Sim`} onClick={() => handleExcluirRegistro(objeto.id)}/>
+                        <Button identifier={`Não`} onClick={() => closeModal(modalId)}/>
+                    </LineContent>
+                </ModalFooter>
+            </Modal.Container>
+        </>
     )
 }

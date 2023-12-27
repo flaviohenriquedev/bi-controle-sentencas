@@ -6,10 +6,10 @@ import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {excluirProcesso, getClientes, getProcessos, salvarProcesso} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Processo} from "@/class/Processo";
 import {Cliente} from "@/class/Cliente";
+import {AcoesFormularioType} from "@/types/AcoesFormularioType";
 
 export function ProcessosComponente() {
 
@@ -92,9 +92,19 @@ export function ProcessosComponente() {
         setAbrirFormulario(true)
     }
 
+    const objetoNovoCadastro: AcoesFormularioType = {
+        valor: abrirFormulario,
+        funcao: () => setAbrirFormulario(!abrirFormulario)
+    }
+    const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarProcesso(processo)}
+    const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
+
     return (
         <Pagesection.Container titulo={`Cadastro de Processos`}
-                               metodoAbrirFormulario={novoCadastro}>
+                               objetoNovoCadastro={objetoNovoCadastro}
+                               objetoSalvarCadastro={objetoSalvarCadastro}
+                               objetoCancelarCadastro={objetoCancelarCadastro}
+        >
             <Pagesection.Form className={abrirFormulario ? `block` : `hidden`}>
                 <LineContent>
                     <LabelContainer title={`Número do Processo`}>
@@ -106,37 +116,127 @@ export function ProcessosComponente() {
                         <Input placeholder={`Digite para buscar`}
                                onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
                                value={filtroCliente.nome}/>
-                        <Table.Container>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.Title title={`Nome`}/>
-                                </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
-                                {clientes && clientes.map((cliente, index) => (
-                                    <Table.Row key={cliente.id}
-                                               onDoubleClick={() => handleSelecionarCliente(cliente)}>
-                                        <Table.Value value={cliente.nome}/>
-                                    </Table.Row>
-                                ))}
-                            </Table.Body>
-                        </Table.Container>
+                    </LabelContainer>
+                </LineContent>
+
+                <LineContent>
+                    <LabelContainer title={`Natureza`}>
+                        <Input placeholder={`Digite para buscar`}
+                               onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
                     </LabelContainer>
 
+                    <LabelContainer title={`Comarca`}>
+                        <Input placeholder={`Digite para buscar`}
+                               onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
                 </LineContent>
-                <LineContent alignment={`right`}>
-                    <Button identifier={`Salvar`}
-                            onClick={() => handleSalvarProcesso(processo)}/>
 
-                    <Button identifier={`Cancelar`}
-                            type={`warning`}
-                            onClick={() => cancelarFormulario()}/>
+                <LineContent>
+                    <LabelContainer title={`Empresa`}>
+                        <Input placeholder={`Digite para buscar`}
+                               onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Advogada`}>
+                        <Input placeholder={`Digite para buscar`}
+                               onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
                 </LineContent>
+
+                <LineContent>
+                    <LabelContainer title={`Data de Intimação`}>
+                        <Input type={`date`}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Data de Sentença`}>
+                        <Input type={`date`}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Data de Pagamento`}>
+                        <Input type={`date`}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Data Início do Benefício (DIB)`}>
+                        <Input type={`date`}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Data Início Pagamento do Benefício (DIP)`}>
+                        <Input type={`date`}/>
+                    </LabelContainer>
+                </LineContent>
+
+                <LineContent>
+                    <LabelContainer title={`Número do Processo RPV`}>
+                        <Input onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Valor RPV`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Valor Honorários`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+                </LineContent>
+
+                <LineContent>
+                    <LabelContainer title={`Número do Processo Sucumbência`}>
+                        <Input onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Valor Honorários Sucumbenciais`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Número do Processo Administrativo`}>
+                        <Input onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Valor Honorários Pagamento no Administrativo`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+                </LineContent>
+
+                <LineContent>
+                    <LabelContainer title={`Número do Processo TRF`}>
+                        <Input onChange={(e) => setProcesso({...processo, numeroProcessoInicial: e.target.value})}
+                               value={processo.numeroProcessoInicial}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Renda Mensal Inicial (RMI)`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Banco`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+
+                    <LabelContainer title={`Observações`}>
+                        <Input onChange={(e) => setFiltroCliente({...filtroCliente, nome: e.target.value})}
+                               value={filtroCliente.nome}/>
+                    </LabelContainer>
+                </LineContent>
+
             </Pagesection.Form>
             <LineContent id={`filtrar-Processo`}>
-                <Input placeholder={`Filtrar por número do processo`}
-                       onChange={(e) => setFiltroProcesso({...filtroProcesso, numeroProcessoInicial: e.target.value})}
+                <LabelContainer>
+                    <Input
+                        onChange={(e) => setFiltroProcesso({...filtroProcesso, numeroProcessoInicial: e.target.value})}
                        value={filtroProcesso.numeroProcessoInicial}/>
+                </LabelContainer>
             </LineContent>
             <LineContent>
                 <Table.Container>

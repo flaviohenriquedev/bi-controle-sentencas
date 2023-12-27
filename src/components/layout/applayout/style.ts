@@ -7,7 +7,7 @@ type Props = {
 export const Container = tw.div`
     flex
     flex-col
-    w-screen
+    w-full
     h-screen
 `
 
@@ -16,7 +16,6 @@ export const Header = tw.header`
     
     justify-between
     items-center
-    
     flex
     w-full
     min-h-[4rem]
