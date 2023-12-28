@@ -6,18 +6,20 @@ type Props = {
 }
 
 export const ButtonStyle = tw.button<Props>`
+
     ${p =>
-    p.typebutton === 'info' ? 'bg-info text-info-content'
-        : p.typebutton === 'success' ? 'bg-success text-success-content'
-            : p.typebutton === 'warning' ? 'bg-warning text-warning-content'
-                : p.typebutton === 'error' ? 'bg-error text-error-content'
+    p.typebutton === 'info' ? 'btn-info'
+        : p.typebutton === 'success' ? 'btn-success'
+            : p.typebutton === 'warning' ? 'btn-warning'
+                : p.typebutton === 'error' ? 'btn-error'
                     : 'bg-info text-info-content'}
 
-
+    btn 
     flex
     items-center
     justify-center
     px-2
     py-1
     rounded-lg
+    min-w-[5rem]
 `

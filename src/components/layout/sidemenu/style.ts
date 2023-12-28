@@ -30,7 +30,7 @@ export const SideMenuItemHeader = tw.h2<SideMenuItemHeaderInterface>`
     rounded-lg
     
     hover:cursor-pointer
-    
+    hover:bg-base-100
 `;
 
 export const IconContainer = tw.div`

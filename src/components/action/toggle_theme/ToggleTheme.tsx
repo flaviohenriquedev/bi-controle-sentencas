@@ -26,7 +26,8 @@ const ToggleTheme = () => {
     function renderThemes(themes: Theme[]) {
         return (themes && themes.map((tm, i) => (
             <li key={i} className="flex items-center gap-3 hover:cursor-pointer bg-base-100 p-2 rounded-lg m-2"
-                data-theme={tm.value} onClick={() => setTheme(tm.value)}>
+                data-theme={tm.value}
+                onClick={() => setTheme(tm.value)}>
                 <div className="flex gap-1">
                     <div className="bg-primary w-2 h-2 rounded-full"/>
                     <div className="bg-secondary w-2 h-2 rounded-lg" data-theme={tm.value}/>

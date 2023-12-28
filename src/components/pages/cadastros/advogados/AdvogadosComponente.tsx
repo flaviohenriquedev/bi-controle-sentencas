@@ -68,7 +68,7 @@ export function AdvogadosComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarAdvogado(advogado)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -103,12 +103,15 @@ export function AdvogadosComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {advogados && advogados.map((advogado, index) => (
-                            <Table.Row key={advogado.id}
-                                       onDoubleClick={() => handleSelecionarAdvogado(advogado)}>
+                        {advogados && advogados.map((a, index) => (
+                            <Table.Row key={a.id}
+                                       onDoubleClick={() => handleSelecionarAdvogado(a)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={advogado.nome}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirAdvogado(advogado.id)}/>
+                                <Table.Value value={a.nome}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirAdvogado(a.id)}
+                                               metodoEditar={() => handleSelecionarAdvogado(a)}
+                                               objeto={a}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

@@ -7,9 +7,9 @@ interface ListProps {
 export const Container = tw.div`
     relative
     flex
-    flex-col
-    flex-nowrap
+    flex-1
     w-24
+    gap-2
     
     hover:cursor-pointer
 `

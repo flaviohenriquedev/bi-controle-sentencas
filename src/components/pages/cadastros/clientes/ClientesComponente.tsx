@@ -68,7 +68,7 @@ export function ClientesComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarCliente(cliente)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -108,13 +108,16 @@ export function ClientesComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {clientes && clientes.map((cliente, index) => (
-                            <Table.Row key={cliente.id}
-                                       onDoubleClick={() => handleSelecionarCliente(cliente)}>
+                        {clientes && clientes.map((c, index) => (
+                            <Table.Row key={c.id}
+                                       onDoubleClick={() => handleSelecionarCliente(c)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={cliente.nome}/>
-                                <Table.Value value={cliente.cpf}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirCliente(cliente.id)} />
+                                <Table.Value value={c.nome}/>
+                                <Table.Value value={c.cpf}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirCliente(c.id)}
+                                               metodoEditar={() => handleSelecionarCliente(c)}
+                                               objeto={c}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

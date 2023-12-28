@@ -68,7 +68,7 @@ export function NaturezasComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarNatureza(natureza)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -103,12 +103,15 @@ export function NaturezasComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {naturezas && naturezas.map((natureza, index) => (
-                            <Table.Row key={natureza.id}
-                                       onDoubleClick={() => handleSelecionarNatureza(natureza)}>
+                        {naturezas && naturezas.map((n, index) => (
+                            <Table.Row key={n.id}
+                                       onDoubleClick={() => handleSelecionarNatureza(n)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={natureza.descricao}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirNatureza(natureza.id)}/>
+                                <Table.Value value={n.descricao}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirNatureza(n.id)}
+                                               metodoEditar={() => handleSelecionarNatureza(n)}
+                                               objeto={n}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

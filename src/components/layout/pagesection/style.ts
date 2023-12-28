@@ -45,5 +45,5 @@ export const FormContainer = tw.div`
     bg-base-200
     rounded-lg
     p-2
-    mb-2
+    mb-9
 `

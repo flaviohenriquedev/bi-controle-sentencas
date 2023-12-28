@@ -94,7 +94,7 @@ export function ProcessosComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarProcesso(processo)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -249,13 +249,16 @@ export function ProcessosComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {processos && processos.map((processo, index) => (
-                            <Table.Row key={processo.id}
-                                       onDoubleClick={() => handleSelecionarProcesso(processo)}>
+                        {processos && processos.map((p, index) => (
+                            <Table.Row key={p.id}
+                                       onDoubleClick={() => handleSelecionarProcesso(p)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={processo.numeroProcessoInicial}/>
-                                <Table.Value value={processo.cliente.nome}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirProcesso(processo.id)}/>
+                                <Table.Value value={p.numeroProcessoInicial}/>
+                                <Table.Value value={p.cliente.nome}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirProcesso(p.id)}
+                                               metodoEditar={() => handleSelecionarProcesso(p)}
+                                               objeto={p}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

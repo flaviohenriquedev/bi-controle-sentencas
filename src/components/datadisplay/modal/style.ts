@@ -68,6 +68,7 @@ export const Content = tw.div`
 
 export const Footer = tw.footer`
     flex
+    flex-1
     justify-end
     items-center
     gap-2

@@ -43,7 +43,7 @@ export function TableActions({metodoExcluir, metodoEditar, objeto, alignment = "
                     )}
                 </div>
             </S.Value>
-            <Modal.Container id={modalId}>
+            <Modal.Container id={modalId} title={`ATENÇÃO`}>
                 <Modal.Content>
                     <LineContent>
                         <label>TEM CERTEZA QUE DESEJA EXCLUIR ESSE REGISTRO?</label>
@@ -52,7 +52,7 @@ export function TableActions({metodoExcluir, metodoEditar, objeto, alignment = "
                 <ModalFooter>
                     <LineContent alignment={`center`}>
                         <Button identifier={`Sim`} onClick={() => handleExcluirRegistro(objeto.id)}/>
-                        <Button identifier={`Não`} onClick={() => closeModal(modalId)}/>
+                        <Button identifier={`Não`} onClick={() => closeModal(modalId)} type={`warning`}/>
                     </LineContent>
                 </ModalFooter>
             </Modal.Container>

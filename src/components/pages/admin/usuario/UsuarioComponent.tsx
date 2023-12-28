@@ -68,7 +68,7 @@ export function UsuarioComponent() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarUsuario(usuario)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -109,13 +109,16 @@ export function UsuarioComponent() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {usuarios && usuarios.map((usuario, index) => (
-                            <Table.Row key={usuario.id}
-                                       onDoubleClick={() => handleSelecionarUsuario(usuario)}>
+                        {usuarios && usuarios.map((u, index) => (
+                            <Table.Row key={u.id}
+                                       onDoubleClick={() => handleSelecionarUsuario(u)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={usuario.nome}/>
-                                <Table.Value value={usuario.email}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirUsuario(usuario.id)}/>
+                                <Table.Value value={u.nome}/>
+                                <Table.Value value={u.email}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirUsuario(u.id)}
+                                               metodoEditar={() => handleSelecionarUsuario(u)}
+                                               objeto={u}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

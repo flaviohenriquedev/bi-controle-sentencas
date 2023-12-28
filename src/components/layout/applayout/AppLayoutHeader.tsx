@@ -17,7 +17,6 @@ export function AppLayoutHeader() {
                 <h1 className={`text-base-content font-bold text-[15pt] font-family: 'Roboto', sans-serif;`}>Escritório de Advocacia</h1>
             </S.LogoContainer>
             <div className={`flex items-center mr-4`}>
-                <AppLayoutTheme />
                 <Avatar />
             </div>
         </S.Header>

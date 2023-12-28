@@ -52,9 +52,10 @@ export const Value = tw.td`
 `
 
 export const ValueContent = tw.div<Props>`
-        ${(p) => p.alignment === "left" ? "justify-start" :
-    p.alignment === "center" ? "justify-center" :
-        p.alignment === "right" ? "justify-end" : "justify-start"}
+        ${(p) =>
+    p.alignment === "left" ? "justify-start" :
+        p.alignment === "center" ? "justify-center" :
+            p.alignment === "right" ? "justify-end" : "justify-start"}
         
     flex
     w-full

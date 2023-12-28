@@ -66,10 +66,7 @@ export function EmpresaComponete() {
         }
     }
 
-    const objetoNovoCadastro: AcoesFormularioType = {
-        valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
-    }
+    const objetoNovoCadastro: AcoesFormularioType = {valor: abrirFormulario, funcao: () => novoCadastro()}
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarEmpresa(empresa)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
 
@@ -110,7 +107,7 @@ export function EmpresaComponete() {
                     </Table.Header>
                     <Table.Body>
                         {empresas && empresas.map((e, index) => (
-                            <Table.Row key={e.id}>
+                            <Table.Row key={e.id} index={index}>
                                 <Table.Value value={index + 1}/>
                                 <Table.Value value={e.cnpj}/>
                                 <Table.Value value={e.nome}/>

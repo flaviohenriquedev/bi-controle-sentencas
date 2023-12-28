@@ -6,7 +6,6 @@ import LabelContainer from "@/components/datainput/label/LabelContainer";
 import {Input} from "@/components/datainput/input/Input";
 import {useEffect, useState} from "react";
 import {excluirAndamento, getAndamentos, salvarAndamento} from "@/services";
-import {Button} from "@/components/action/button/Button";
 import {Table} from "@/components/datadisplay/table";
 import {Andamento} from "@/class/Andamento";
 import {AcoesFormularioType} from "@/types/AcoesFormularioType";
@@ -69,7 +68,7 @@ export function AndamentosComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarAndamento(andamento)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -104,12 +103,15 @@ export function AndamentosComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {andamentos && andamentos.map((andamento, index) => (
-                            <Table.Row key={andamento.id}
-                                       onDoubleClick={() => handleSelecionarAndamento(andamento)}>
+                        {andamentos && andamentos.map((a, index) => (
+                            <Table.Row key={a.id}
+                                       onDoubleClick={() => handleSelecionarAndamento(a)}
+                                       index={index}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={andamento.descricao}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirAndamento(andamento.id)}/>
+                                <Table.Value value={a.descricao}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirAndamento(a.id)}
+                                               metodoEditar={() => handleSelecionarAndamento(a)}
+                                               objeto={a}/>
                             </Table.Row>
                         ))}
                     </Table.Body>

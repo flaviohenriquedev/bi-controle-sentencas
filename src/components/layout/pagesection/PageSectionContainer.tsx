@@ -24,7 +24,13 @@ export function PageSectionContainer({
                     <S.Label>
                         {titulo}
                     </S.Label>
-                    {objetoNovoCadastro && objetoNovoCadastro.valor ? (
+
+                    <S.Botao tipo={`novo`}
+                             onClick={() => objetoNovoCadastro && objetoNovoCadastro.funcao(objetoNovoCadastro.valor)}>
+                        Novo Cadastro
+                    </S.Botao>
+
+                    {objetoNovoCadastro && objetoNovoCadastro.valor && (
                         <>
                             <S.Botao tipo={`salvar`} onClick={() => objetoSalvarCadastro && objetoSalvarCadastro.funcao(objetoSalvarCadastro.valor)}>
                                 Salvar
@@ -34,10 +40,6 @@ export function PageSectionContainer({
                                 Cancelar
                             </S.Botao>
                         </>
-                    ) : (
-                        <S.Botao tipo={`novo`} onClick={() => objetoNovoCadastro && objetoNovoCadastro.funcao(objetoNovoCadastro.valor)}>
-                            Novo Cadastro
-                        </S.Botao>
                     )}
                 </S.Header>
             )}

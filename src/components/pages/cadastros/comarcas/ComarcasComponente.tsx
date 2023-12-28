@@ -68,7 +68,7 @@ export function ComarcasComponente() {
 
     const objetoNovoCadastro: AcoesFormularioType = {
         valor: abrirFormulario,
-        funcao: () => setAbrirFormulario(!abrirFormulario)
+        funcao: () => novoCadastro()
     }
     const objetoSalvarCadastro: AcoesFormularioType = {valor: '', funcao: () => handleSalvarComarca(comarca)}
     const objetoCancelarCadastro: AcoesFormularioType = {valor: '', funcao: () => cancelarFormulario()}
@@ -119,15 +119,17 @@ export function ComarcasComponente() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {comarcas && comarcas.map((comarca, index) => (
-                            <Table.Row key={comarca.id}
-                                       onDoubleClick={() => handleSelecionarComarca(comarca)}>
+                        {comarcas && comarcas.map((c, index) => (
+                            <Table.Row key={c.id}
+                                       onDoubleClick={() => handleSelecionarComarca(c)}>
                                 <Table.Value value={index + 1}/>
-                                <Table.Value value={comarca.descricao}/>
-                                <Table.Value value={comarca.tipo}/>
-                                <Table.Value value={comarca.estado}/>
-                                <Table.Value value={comarca.municipio}/>
-                                <Table.Actions metodoExcluir={() => handleExcluirComarca(comarca.id)}/>
+                                <Table.Value value={c.descricao}/>
+                                <Table.Value value={c.tipo}/>
+                                <Table.Value value={c.estado}/>
+                                <Table.Value value={c.municipio}/>
+                                <Table.Actions metodoExcluir={() => handleExcluirComarca(c.id)}
+                                               metodoEditar={() => handleSelecionarComarca(c)}
+                                               objeto={c}/>
                             </Table.Row>
                         ))}
                     </Table.Body>
