@@ -18,8 +18,10 @@ export const ButtonStyle = tw.button<Props>`
     flex
     items-center
     justify-center
+    max-h-[2.5rem]
+    min-h-[2.5rem]
     px-2
     py-1
     rounded-lg
-    min-w-[5rem]
+    min-w-[8rem]
 `

@@ -1,22 +1,27 @@
 import axios from "axios";
+import {Autenticacao} from "@/class/Autenticacao";
 
-const auth = {token: false};
+const auth: Autenticacao = new Autenticacao();
 
-export const setToken = (token: boolean) => {
-  auth.token = token;
+export const setToken = (token: string) => {
+    auth.token = token
 };
 
 const endpoints = {
-  production: "https://bi-controle-sentencas-api.vercel.app/",
-  develop:
-    "http://localhost:3001/",
+    production: "https://bi-controle-sentencas-api.vercel.app/",
+    develop: "https://bi-controle-sentencas-api-git-develop-thiagordepaiva.vercel.app/",
+    test: "http://localhost:3001"
 };
 
-export const baseURL =  endpoints.develop;
+export const baseURL = endpoints.test;
 
 export const axiosInstance = (params: any) =>
-  axios({
-    baseURL,
-    ...params,
-    headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWUiOiJBZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzAyODMzODk5LCJleHAiOjIwNjI4MzM5Mjl9.d4W1gUlJcqKuaG0NmuiVRWInyFmmUd6qoVaYoB3Qjjs`},
-  });
+    axios({
+        baseURL,
+        ...params,
+        headers: {
+            ...(auth.token && {
+                Authorization: `Bearer ${auth.token}`,
+            }),
+        },
+    });

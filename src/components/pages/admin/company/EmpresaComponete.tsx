@@ -24,6 +24,7 @@ export function EmpresaComponete() {
     async function fetchCadastros() {
         try {
             const response = await getEmpresa(filtroEmpresa);
+            console.log('RESPOSTA EMPRESA', response)
             setEmpresas(response.data);
         } catch (error) {
             // if (error.response?.status === 401) {

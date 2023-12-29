@@ -2,13 +2,11 @@ import {axiosInstance} from "./axiosIntance";
 
 export const login = async (username: string, password: string) => {
   try {
-    console.log(username, password)
     const res = await axiosInstance({
       method: "get",
       url: "/auth/login",
       auth: { username, password },
     });
-    console.log(res)
     return Promise.resolve(res);
   } catch (error) {
     return Promise.reject(error);

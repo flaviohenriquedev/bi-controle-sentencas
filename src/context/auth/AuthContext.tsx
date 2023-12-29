@@ -1,48 +1,56 @@
 'use client'
 
 import * as React from "react";
-import { useContext, useState, useEffect, createContext } from "react";
+import {createContext, useContext, useState} from "react";
 
-import { setToken } from "@/services";
+import {setToken} from "@/services";
+import {Autenticacao} from "@/class/Autenticacao";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
-const AuthContext = createContext<[any, React.Dispatch<React.SetStateAction<any>>]>([{}, () => {}]);
+interface Props {
+    retorno: Autenticacao
+    setRetorno: (retorno: Autenticacao) => void
+}
 
-export const useAuth = () => {
-    const [state, setState] = useContext(AuthContext);
-
-    const logout = () => {
-        setState(false);
-        setToken(false);
-    };
-
-    const login = (auth: any) => {
-        setState(auth);
-        setToken(auth.token);
-    };
-
-    return [state, { login, logout }];
-};
+const AuthContext = createContext<Props>({
+    retorno: new Autenticacao(),
+    setRetorno: (retorno: Autenticacao) => {
+    }
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [state, setState] = useState(() => {
-        const data = window.localStorage.getItem("auth");
-
-        const auth = data && JSON.parse(data);
-
-        if (auth?.token) {
-            setToken(auth.token);
-        }
-
-        return auth;
-    });
-
-    useEffect(() => {
-        window.localStorage.setItem("auth", state && JSON.stringify(state));
-    }, [state]);
+    const [retorno, setRetorno] = useState<Autenticacao>(new Autenticacao())
 
     return (
-        <AuthContext.Provider value={[state, setState]}>
+        <AuthContext.Provider value={{
+            retorno,
+            setRetorno
+        }}>
             {children}
         </AuthContext.Provider>
     );
+};
+
+export const useAuth = () => {
+    const route = useRouter()
+    const {retorno, setRetorno} = useContext(AuthContext);
+    const [tokenlogado, setTokenLogado] = useState<string>('')
+
+    const logout = () => {
+        setRetorno(new Autenticacao());
+        setToken('');
+        if (localStorage.getItem('tokenlogado')) {
+            localStorage.removeItem('tokenlogado')
+        }
+        route.push("/")
+    };
+
+    const login = (auth: Autenticacao) => {
+        console.log('AUTH', auth.token)
+        setRetorno(auth);
+        setToken(auth.token);
+    };
+
+    return {retorno, login, logout, tokenlogado, setTokenLogado};
 };

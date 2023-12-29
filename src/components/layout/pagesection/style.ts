@@ -18,9 +18,12 @@ export const Header = tw.label`
 `
 
 export const Label = tw.label`
+    flex
+    items-center
+    pl-2
     bg-primary
     text-primary-content
-    p-2
+    h-10
     w-full
     rounded-lg
     font-bold

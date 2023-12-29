@@ -12,9 +12,10 @@ import {Modal} from "@/components/datadisplay/modal";
 import SeletorDeTemas from "@/components/datadisplay/temas/SeletorDeTemas";
 import {openModal} from "@/functions/functions";
 import {useState} from "react";
+import {useAuth} from "@/context/auth/AuthContext";
 
 export const Avatar = () => {
-
+    const {logout}  = useAuth()
     const [abrirMenu, setAbrirMenu] = useState<boolean>(false)
 
     return (
@@ -51,12 +52,12 @@ export const Avatar = () => {
                         <span>Trocar Tema</span>
                     </div>
                     <hr/>
-                    <Link href="/" className={`flex gap-2 items-center`}>
+                    <div onClick={logout} className={`flex gap-2 items-center hover:cursor-pointer`}>
                         <div>
                             <RxExit/>
                         </div>
                         <span>Sair</span>
-                    </Link>
+                    </div>
                 </div>
             </ul>
         </div>

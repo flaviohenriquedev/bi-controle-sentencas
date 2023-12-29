@@ -19,7 +19,6 @@ export function TableActions({metodoExcluir, metodoEditar, objeto, alignment = "
     const modalId = `confirmar_exclusao_${objeto.id}`
 
     function handleExcluirRegistro(id: number){
-        console.log('OBJ', id)
         metodoExcluir && metodoExcluir(id)
         closeModal(modalId)
     }

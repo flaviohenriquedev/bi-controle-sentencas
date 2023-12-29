@@ -9,6 +9,7 @@ import {useRouter} from "next/navigation";
 import {axiosInstance} from "@/services";
 import {FormEvent, useState} from "react";
 import {useAuth} from "@/context/auth/AuthContext";
+import {Autenticacao} from "@/class/Autenticacao";
 
 type User = {
     username: string
@@ -18,37 +19,49 @@ type User = {
 export function LoginComponente() {
 
     const route = useRouter()
-    const [, {login: setAuth}] = useAuth();
+    const { retorno, login, setTokenLogado} = useAuth();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
-    const [requiredFields, setRequiredFields] = useState([]);
 
-    const login = async ({username, password}: User) => {
+    const submitLogin = async ({username, password}: User) => {
         try {
-            console.log(username, password)
             const res = await axiosInstance({
                 method: "get",
                 url: "/auth/login",
                 auth: {username, password},
             });
-
             return Promise.resolve(res);
         } catch (error) {
             return Promise.reject(error);
         }
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault()
-
-        login({username, password})
+        submitLogin({username, password})
             .then((response) => {
-                console.log('RESPOSTA LOGIN', response.data);
-                const {usuario, token, nomeUsuario} = response.data;
-                setAuth({usuario, token, nomeUsuario});
+                const resposta: Autenticacao = response.data;
 
-                console.log('TOKEN', token)
+                if (resposta.token.length > 0) {
+                    const tokenlogado = localStorage.getItem("token")
+                    login(resposta);
+
+                    if (!tokenlogado) {
+                        localStorage.setItem("tokenlogado", resposta.token)
+
+                        const tokenlogado2 = localStorage.getItem("token")
+                        if (tokenlogado2) {
+                            setTokenLogado(tokenlogado2)
+                        }
+                    } else {
+                        setTokenLogado(tokenlogado)
+                    }
+                    route.push("/manager");
+                } else {
+                    console.error("Falha na autenticação");
+                }
 
                 if (rememberMe) {
                     localStorage.setItem("rememberedUser", username);
@@ -59,7 +72,7 @@ export function LoginComponente() {
                 }
             })
             .catch((error) => {
-                console.error('ERRO ERRO', error.response.data);
+                console.log(error)
             });
     };
 
@@ -84,7 +97,7 @@ export function LoginComponente() {
                     </LabelContainer>
                     <div className={`mt-10`}>
                         <LineContent>
-                            <Button onClick={() => route.push("/manager")}
+                            <Button onClick={(e) => handleSubmit(e)}
                                     className={`w-full h-10`}
                                     identifier={`Entrar`}/>
                         </LineContent>
